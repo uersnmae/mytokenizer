@@ -102,7 +102,7 @@ static size_t	double_quote_state(char **str)
 			++(*str);
 			break ;
 		}
-		else if (**str == '\\' && (*str + 1))
+		else if (**str == '\\' && *(*str + 1))
 		{
 			(*str) += 2;
 			++len;
