@@ -29,7 +29,11 @@ t_token	*get_new_token(t_toktype type, const char *start, size_t len)
 	if (token == NULL)
 		return (NULL);
 	token->type = type;
-	token->value = ft_strndup(start, len);
+	token->token_size = (int)len;
+	if (type == TK_EOF || start == NULL || len == 0)
+		token->value = NULL;
+	else
+		token->value = ft_strndup(start, len);
 	token->next = NULL;
 	return (token);
 }

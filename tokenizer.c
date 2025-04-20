@@ -6,7 +6,7 @@
 /*   By: dong-hki <dong-hki@student.42gyeongsan.kr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:43:02 by dong-hki          #+#    #+#             */
-/*   Updated: 2025/04/21 02:29:41 by dong-hki         ###   ########.fr       */
+/*   Updated: 2025/04/21 02:55:08 by dong-hki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	parse_quote(const char **p_input, t_token **head, t_token **tail)
 {
 	const char	*start = *p_input + 1;
 	char		quote;
+	size_t		len;
 	t_token		*token;
 
 	quote = *(*p_input)++;
@@ -66,9 +67,10 @@ static void	parse_quote(const char **p_input, t_token **head, t_token **tail)
 			(*p_input)++;
 		(*p_input)++;
 	}
+	len = *p_input - start;
 	if (**p_input == quote)
 		(*p_input)++;
-	token = get_new_token(TK_WORD, start, *p_input - start);
+	token = get_new_token(TK_WORD, start, len);
 	if (token == NULL)
 		return ;
 	if (*head == NULL)
@@ -131,5 +133,4 @@ static void	parse_eof(t_token **head, t_token **tail)
 			*head = eof;
 		*tail = eof;
 	}
-
 }

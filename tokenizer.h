@@ -41,6 +41,7 @@ typedef enum e_toktype
 typedef struct s_token
 {
 	t_toktype		type;
+	int				token_size;
 	char			*value;
 	struct s_token	*next;
 }	t_token;
