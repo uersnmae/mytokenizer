@@ -6,7 +6,7 @@
 /*   By: dong-hki <dong-hki@student.42gyeongsan.kr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:41:13 by dong-hki          #+#    #+#             */
-/*   Updated: 2025/02/14 11:54:04 by dong-hki         ###   ########.fr       */
+/*   Updated: 2025/04/21 02:31:19 by dong-hki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include "../libft/libft.h"
-# define SINGLE_QUOTE '\''
-# define DOUBLE_QUOTE '\"'
 
 typedef enum e_state
 {
@@ -26,15 +23,34 @@ typedef enum e_state
 	STATE_DOUBLE_QUOTE
 }	t_state;
 
+typedef enum e_toktype
+{
+	TK_WORD,
+	TK_PIPE,
+	TK_REDIR_IN,
+	TK_REDIR_OUT,
+	TK_D_REDIR_IN,
+	TK_D_REDIR_OUT,
+	TK_LPAR,
+	TK_RPAR,
+	TK_AND_IF,
+	TK_OR_IF,
+	TK_EOF
+}	t_toktype;
+
 typedef struct s_token
 {
-	char	**token;
-	int		token_size;
+	t_toktype		type;
+	char			*value;
+	struct s_token	*next;
 }	t_token;
 
-size_t	get_buflen(char **str);
-t_state	init_state(char **argv);
-int		token_count(char *argv);
-char	**tokenizer(const char *argv, int token_count);
+int			is_operator_start(char c);
+t_token		*get_new_token(t_toktype type, const char *start, size_t len);
+t_toktype	get_operator_len_two(const char **str);
+t_toktype	get_operator_len_one(const char **str);
+void		free_tokens(t_token *head);
+
+t_token		*tokenize(const char *input);
 
 #endif
