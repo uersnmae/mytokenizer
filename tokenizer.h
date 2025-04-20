@@ -6,7 +6,7 @@
 /*   By: dong-hki <dong-hki@student.42gyeongsan.kr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:41:13 by dong-hki          #+#    #+#             */
-/*   Updated: 2025/04/21 02:31:19 by dong-hki         ###   ########.fr       */
+/*   Updated: 2025/04/21 03:08:45 by dong-hki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ typedef struct s_token
 
 int			is_operator_start(char c);
 t_token		*get_new_token(t_toktype type, const char *start, size_t len);
-t_toktype	get_operator_len_two(const char **str);
-t_toktype	get_operator_len_one(const char **str);
+t_toktype	get_operator(const char **str);
 void		free_tokens(t_token *head);
 
 t_token		*tokenize(const char *input);

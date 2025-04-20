@@ -6,7 +6,7 @@
 /*   By: dong-hki <dong-hki@student.42gyeongsan.kr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:43:02 by dong-hki          #+#    #+#             */
-/*   Updated: 2025/04/21 02:55:08 by dong-hki         ###   ########.fr       */
+/*   Updated: 2025/04/21 03:09:00 by dong-hki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 static void			parse_quote(const char **p_input, t_token **head, t_token **tail);
 static void			parse_operator(const char **p_input, t_token **head, t_token **tail);
 static void			parse_word(const char **p_input, t_token **head, t_token **tail);
-static t_toktype	get_operator(const char **str);
 static void			parse_eof(t_token **head, t_token **tail);
 
 t_token	*tokenize(const char *input)
@@ -42,14 +41,19 @@ t_token	*tokenize(const char *input)
 	return (head);
 }
 
-static t_toktype	get_operator(const char **str)
+t_toktype	get_operator(const char **str)
 {
 	t_toktype	toktype;
 
+	toktype = get_operator_bonus(str);
+	if (toktype != TK_EOF)
+		return (toktype);
 	toktype = get_operator_len_two(str);
 	if (toktype != TK_EOF)
 		return (toktype);
 	toktype = get_operator_len_one(str);
+	if (toktype != TK_EOF)
+		return (toktype);
 	return (toktype);
 }
 
